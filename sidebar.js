@@ -71,16 +71,40 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!target) return;
 
   if (source) {
-    target.innerHTML = source.innerHTML;
+    // try to fetch articles.json and build the list from it; fallback to static source
+    fetch('articles.json', { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('no articles.json');
+        return res.json();
+      })
+      .then(items => {
+        // sort by date desc if present, otherwise keep order
+        items.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        const list = items.slice(0, 3).map(it => `<li><a href="${it.url}">${it.title}</a></li>`).join('\n');
+        source.innerHTML = `<h3>Viimased</h3>\n<ul>\n${list}\n</ul>`;
+        // populate mobile sidebar from the generated source
+        target.innerHTML = source.innerHTML;
 
-    // ensure hamburger has appropriate ARIA attributes
-    if (hamburger) {
-      hamburger.setAttribute('aria-controls', 'sidebar');
-      hamburger.setAttribute('aria-expanded', 'false');
-      hamburger.setAttribute('aria-label', 'Open sidebar menu');
-      hamburger.style.display = ''; // ensure visible
-      hamburger.removeAttribute('aria-hidden');
-    }
+        // ensure hamburger visible and accessible
+        if (hamburger) {
+          hamburger.setAttribute('aria-controls', 'sidebar');
+          hamburger.setAttribute('aria-expanded', 'false');
+          hamburger.setAttribute('aria-label', 'Open sidebar menu');
+          hamburger.style.display = '';
+          hamburger.removeAttribute('aria-hidden');
+        }
+      })
+      .catch(() => {
+        // fallback to using the static HTML inside the page
+        target.innerHTML = source.innerHTML;
+        if (hamburger) {
+          hamburger.setAttribute('aria-controls', 'sidebar');
+          hamburger.setAttribute('aria-expanded', 'false');
+          hamburger.setAttribute('aria-label', 'Open sidebar menu');
+          hamburger.style.display = '';
+          hamburger.removeAttribute('aria-hidden');
+        }
+      });
   } else {
     // no desktop "Viimased" on this page — hide hamburger and remove mobile sidebar
     if (hamburger) {
