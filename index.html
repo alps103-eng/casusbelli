@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casus Belli</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- MOBILE HAMBURGER -->
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+<!-- MOBILE SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <h3>Viimased</h3>
+  <ul>
+    <li><a href="#">RaM Tants</a></li>
+    <li><a href="#">Intervjuu õpetajaga</a></li>
+    <li><a href="#">Õpilasesinduse uudised</a></li>
+  </ul>
+</aside>
+
+<!-- HEADER -->
+<header class="site-header">
+  <h1 class="site-title">
+    <a href="index.html">CASUS BELLI</a>
+  </h1>
+  <p class="site-subtitle">Rocca al Mare Kooli ajaleht</p>
+
+  <nav class="main-nav">
+    <a href="index.html">Avaleht</a>
+    <a href="#">Üritused</a>
+    <a href="#">Sport</a>
+    <a href="archive.html">Arhiiv</a>
+  </nav>
+
+  <form class="search-form" onsubmit="return false;">
+    <input type="text" id="searchInput" placeholder="Otsi artikleid…">
+    <button type="button">🔍</button>
+  </form>
+</header>
+
+<!-- MAIN LAYOUT -->
+<main class="layout">
+
+  <!-- ARTICLES -->
+  <section class="articles" id="articles">
+
+    <article class="article-preview">
+      <h2>
+        <a href="article.html">
+          Transpordiamet plaanib madalamat piirkiirust
+        </a>
+      </h2>
+      <p>Lühike sissejuhatus artiklile…</p>
+    </article>
+
+    <article class="article-preview">
+      <h2>
+        <a href="article.html">RaM Tantsu võitjad taas 27.lend</a>
+      </h2>
+      <p>Koolipere kogunes vaatama RaM Tantsu esitlust…</p>
+    </article>
+
+    <article class="article-preview">
+      <h2>
+        <a href="article.html">Kevadised spordivõistlused</a>
+      </h2>
+      <p>Õpilased osalesid erinevatel aladel ja turniiridel…</p>
+    </article>
+
+  </section>
+
+  <!-- DESKTOP SIDEBAR -->
+  <aside class="sidebar-desktop">
+    <h3>Viimased</h3>
+    <ul>
+      <li><a href="#">RaM Tants</a></li>
+      <li><a href="#">Intervjuu õpetajaga</a></li>
+      <li><a href="#">Õpilasesinduse uudised</a></li>
+    </ul>
+  </aside>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  © Casus Belli – Rocca al Mare Kool
+</footer>
+
+<!-- JS -->
+<script src="sidebar.js"></script>
+<script src="search.js"></script>
+
+</body>
+</html>
