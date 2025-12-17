@@ -138,6 +138,7 @@ a:hover {
 
 .layout {
   display: flex;
+  align-items: flex-start; /* allow sticky sidebar */
   max-width: 1200px;
   margin: auto;
   padding: 40px 30px;
@@ -147,6 +148,17 @@ a:hover {
   flex: 3;
 }
 
+/* desktop sidebar */
+.sidebar-desktop {
+  flex: 1;
+  max-width: 260px;
+  margin-left: 40px;
+  align-self: flex-start;
+  position: -webkit-sticky; /* for Safari */
+  position: sticky;
+  top: 220px; /* lower so it sits under the header */
+  padding-top: 24px; /* more breathing room inside the sidebar */
+} 
 .article-preview {
   margin-bottom: 36px;
 }
@@ -414,6 +426,7 @@ a:hover {
   /* hamburger visible only on mobile */
   .hamburger {
     display: block;
+    z-index: 1003; /* above everything */
   }
 
   /* mobile sidebar */
@@ -421,12 +434,14 @@ a:hover {
     position: fixed;
     top: 0;
     left: -260px;
-    width: 240px;
+    width: 260px;
     height: 100%;
     background: #111;
-    padding: 56px 24px 24px; /* room for hamburger at the top */
+    padding: 140px 24px 24px; /* more room for hamburger at the top */
     transition: left 0.3s ease;
-    z-index: 1000;
+    z-index: 1002;
+    overflow: auto; /* allow scrolling inside the sidebar */
+    -webkit-overflow-scrolling: touch;
   }
 
   .sidebar.open {
@@ -438,6 +453,20 @@ a:hover {
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 16px;
+    margin-top: 0; /* prevent extra space */
+  }
+
+  /* backdrop for the mobile sidebar */
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1001; /* behind the sidebar, above the page */
+    display: none;
+  }
+
+  .sidebar-backdrop.visible {
+    display: block;
   }
 
   .sidebar ul {
